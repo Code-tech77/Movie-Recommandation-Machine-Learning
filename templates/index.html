@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Movie Recommender</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script defer src="{{ url_for('static', filename='script.js') }}"></script>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>🎬 Movie Recommender</h1>
+    <p class="subtitle">Find movies you’ll love instantly</p>
+
+    <form action="/recommend" method="POST" class="form">
+        
+        <input type="text" id="searchBox" placeholder="Search movie..." onkeyup="filterMovies()">
+
+        <select name="selected_movie" id="movieDropdown">
+            {% for movie in movie_list %}
+                <option value="{{movie}}">{{movie}}</option>
+            {% endfor %}
+        </select>
+
+        <button type="submit">Recommend</button>
+    </form>
+
+    {% if recommended_movie_titles %}
+    <div class="results">
+        <h2>🔥 Recommended for You</h2>
+        <div class="cards">
+            {% for movie in recommended_movie_titles %}
+                <div class="card">
+                    <p>{{movie}}</p>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
+
+</div>
+
+</body>
+</html>
